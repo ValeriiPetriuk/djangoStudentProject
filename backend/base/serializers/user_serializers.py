@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from base.models import User
-
+from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -22,7 +22,33 @@ class UserModelSerializer(serializers.ModelSerializer):
         exclude = ('is_staff', 'is_active', 'date_joined',  'last_login', 'user_permissions',
                    'is_superuser')
 
+
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
+    password2 = serializers.CharField(max_length=128, min_length=8)
+    email = serializers.EmailField(
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+    class Meta:
+        model = User
+        fields = ("username", "surname", "email", "password", "password2", "groups", "role")
+
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
+
+        return attrs
+
     def create(self, validated_data):
+        validated_data.pop('password2')
         return User.objects.create_user(**validated_data)
+
+
+
 
 
