@@ -10,7 +10,13 @@ class User(AbstractUser):
 
     surname = models.CharField(max_length=50)
     phone = models.CharField(max_length=11, unique=True)
-    groups = models.CharField(max_length=10)
+    groups = models.ForeignKey("Group", related_name='groups', on_delete=models.SET_NULL, null=True, blank=True)
     role = models.CharField(choices=RolesChoice.choices, default=RolesChoice.STUDENT, max_length=10)
     photo = models.ImageField(upload_to='user/photo', blank=True, null=True)
 
+
+class Group(models.Model):
+    name = models.CharField(max_length=10, unique=True)
+
+    def __str__(self):
+        return self.name

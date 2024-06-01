@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from base.models import User
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth.hashers import make_password
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -23,8 +23,6 @@ class UserModelSerializer(serializers.ModelSerializer):
                    'is_superuser')
 
 
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=128, min_length=8, write_only=True, required=True)
     password2 = serializers.CharField(max_length=128, min_length=8)
@@ -34,8 +32,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = User
-        fields = ("username", "surname", "email", "password", "password2", "groups", "role")
-
+        fields = ("username", "first_name", "last_name", "surname", "email", "password", "password2", "groups", "role")
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
