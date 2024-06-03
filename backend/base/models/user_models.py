@@ -15,8 +15,3 @@ class User(AbstractUser):
     photo = models.ImageField(upload_to='user/photo', blank=True, null=True)
 
 
-class Group(models.Model):
-    name = models.CharField(max_length=10, unique=True)
-
-    def __str__(self):
-        return self.name

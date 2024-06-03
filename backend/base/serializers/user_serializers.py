@@ -3,6 +3,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from base.models import User
 from rest_framework.validators import UniqueValidator
 
+from base.serializers.group_serializers import GroupSerializer
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -14,9 +16,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class UserModelSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer()
+
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "surname", "email", "phone", "groups", "role")
+        fields = ("username", "first_name", "last_name", "surname", "email", "phone", "groups", "role", "photo")
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -28,7 +32,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "surname", "email", "phone", "password", "password2", "groups", "role")
+        fields = ("username", "first_name", "last_name",
+                  "surname", "email", "phone", "password", "password2",
+                  "groups", "role", "photo")
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
