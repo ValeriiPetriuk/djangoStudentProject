@@ -1,13 +1,10 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
-
 from base.filters.user_filter import UserFilter
 from base.models import User
 from base.serializers import MyTokenObtainPairSerializer
 from base.serializers.user_serializers import UserModelSerializer, RegisterSerializer
 from rest_framework import generics
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.response import Response
 
 
 class ListViewUser(generics.ListAPIView):

@@ -1,14 +1,19 @@
-from django.urls import path
-
+from django.urls import path, include, re_path
+from rest_framework.routers import DefaultRouter
 from base.views.user_views import (
         MyTokenObtainPairView, ListViewUser,
         RegisterView,  UserDetailView,
-        UpdateUserView, CurrentUserView
+        UpdateUserView, CurrentUserView,
     )
+
+from base.views.subject_views import SubjectViewSet
+
+router = DefaultRouter()
+router.register(r'subject', SubjectViewSet)
 
 
 urlpatterns = [
-
+    path('', include(router.urls)),
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
     path("users/",  ListViewUser.as_view(), name='users'),
