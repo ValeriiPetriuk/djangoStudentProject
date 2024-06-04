@@ -41,7 +41,7 @@ class SubjectViewSet(viewsets.ModelViewSet):
         serializer = SubjectModelSerializer(subject)
         return Response(serializer.data)
 
-    def delete(self, request, *args, **kwargs):
+    def destroy(self, request, *args, **kwargs):
         subject = self.get_object()
         if not self.request.user == subject.teacher:
             return Response({"detail": "You are not allowed to detele this subject"}, status=403)
