@@ -12,8 +12,6 @@ class Schedule(models.Model):
     group = models.ForeignKey("Group", related_name="groups_schedule", on_delete=models.CASCADE)
     subject = models.ManyToManyField("Subject", related_name="subjects_schedule")
     day = models.CharField(max_length=15, choices=DayChoice.choices)
-    # start_time = models.TimeField()
-    # end_time = models.TimeField()
 
     def __str__(self):
         return f"{self.group.name} - {self.day}"

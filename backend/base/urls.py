@@ -5,11 +5,13 @@ from base.views.user_views import (
         RegisterView,  UserDetailView,
         UpdateUserView, CurrentUserView,
     )
-
 from base.views.subject_views import SubjectViewSet
+from base.views.schedule_views import ScheduleViewSet
 
 router = DefaultRouter()
 router.register(r'subject', SubjectViewSet)
+
+router.register(r'schedule', ScheduleViewSet)
 
 
 urlpatterns = [

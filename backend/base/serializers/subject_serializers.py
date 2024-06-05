@@ -6,4 +6,4 @@ from base.models import Subject
 class SubjectModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = '__all__'
+        fields = ("name", "teacher")
