@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-no1q@h@%%_2nui=it)kuh$mxpf(h#g9xd@e%(_+b#hh-=76%de
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = ['https://*.127.0.0.1']
 
 
 # Application definition
@@ -40,12 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    "corsheaders",
 
     #my app
     "base",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+ 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,6 +137,14 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = 'static/images/'
 
 AUTH_USER_MODEL = 'base.User'
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:5173',
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://0.0.0.0',
+
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
