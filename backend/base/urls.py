@@ -7,12 +7,13 @@ from base.views.user_views import (
     )
 from base.views.subject_views import SubjectViewSet
 from base.views.schedule_views import ScheduleViewSet
+from base.views.group_views import GroupModelViewSet
 
 router = DefaultRouter()
 router.register(r'subject', SubjectViewSet)
 
 router.register(r'schedule', ScheduleViewSet)
-
+router.register(r'groups', GroupModelViewSet)
 
 urlpatterns = [
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
