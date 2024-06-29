@@ -1,41 +1,54 @@
-import { TableContainer, Table, TableHead, TableCell, TableBody, Paper, TableRow } from "@mui/material";
+import { TableContainer, Table, TableHead, TableCell, TableBody, Paper, TableRow, Box, CircularProgress } from "@mui/material";
 
 
 
-const SheduleTable = ({schedule}) => {
-    console.log("Shedule:" + {schedule})
+const SheduleTable = ({schedule, loading}) => {
   
     return (
-        <TableContainer component={Paper}>
+      
+        loading ?
+        (<Box   sx={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh' 
+        }}
+        >
+          <CircularProgress  size={80}/>
+        </Box>)
+              :
+        (<TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Назва</TableCell>
-                <TableCell align="right">Група</TableCell>
-                {/* <TableCell align="right">День</TableCell> */}
+                <TableCell>№</TableCell>
+                <TableCell align="right">Назва</TableCell>
                 <TableCell align="right">Виклачад</TableCell>
+                <TableCell align="right">Аудиторія</TableCell>
+                <TableCell align="right">Час</TableCell>
                 
               </TableRow>
             </TableHead>
             
             <TableBody>
                     {schedule.map((item) =>
-                        item.subject.map((subject) => (
+                       
                             <TableRow
-                                key={`${item.day}-${subject.name}`}
+                                key={item.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">{subject.name}</TableCell>
-                                <TableCell align="right">{item.group.name}</TableCell>
-                                {/* <TableCell align="right">{item.day}</TableCell> */}
-                                <TableCell align="right">{`${subject.teacher.first_name} ${subject.teacher.last_name}`}</TableCell>
+                                 <TableCell component="th" scope="row">{item.number_subject}</TableCell>
+                                <TableCell align="right">{item.subject.name}</TableCell>
+                                <TableCell align="right">{`${item.subject.teacher.first_name} ${item.subject.teacher.last_name}`}</TableCell>
+                                <TableCell align="right">{item.audience}</TableCell>
+                                <TableCell align="right">{item.time}</TableCell>
                             </TableRow>
-                        ))
+                    
                     )}
                 </TableBody>
           
           </Table>
-        </TableContainer>
+        </TableContainer>)
       );
 }
 

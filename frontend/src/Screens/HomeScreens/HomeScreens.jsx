@@ -5,18 +5,24 @@ import SelectDay from "../../Components/SelectDay";
 import SelectGroup from "../../Components/SelectGroup";
 import { useEffect, useState } from "react";
 import { listSchedule } from "../../actions/scheduleActions";
+import { listGroups } from "../../actions/groupsActions";
 
 
 const HomeScreens = () => {
 
     const dispatch = useDispatch()
     const scheduleList = useSelector(state => state.scheduleList)
-    const {schedule} = scheduleList
+    const {schedule, loading: loadingSchedule} = scheduleList
+
+    const groupsList = useSelector(state => state.groupsList)
+    const {groups} = groupsList
+
     const [day, setDay] = useState('Понеділок');
     const [group, setGroup] = useState('');
 
     useEffect(()=> {
       dispatch(listSchedule(day, group))
+      dispatch(listGroups())
     }, [dispatch, day, group])
 
     
@@ -37,7 +43,7 @@ const HomeScreens = () => {
                                 <SelectDay day={day} handleChange={handleChangeDay}/>
                             </Grid>
                             <Grid item xs={6}>
-                                <SelectGroup  group={group} handleChangeGroup={handleChangeGroup}/>
+                                <SelectGroup  group={group} handleChangeGroup={handleChangeGroup} groups={groups}/>
                             </Grid>
                         </Grid>
                     </Paper>
@@ -45,7 +51,7 @@ const HomeScreens = () => {
                 </Grid>
                 <Grid item xs={12} >
                     <Paper>
-                        <SheduleTable schedule={schedule}/>
+                        <SheduleTable schedule={schedule} loading={loadingSchedule}/>
                     </Paper>
                 </Grid>
              

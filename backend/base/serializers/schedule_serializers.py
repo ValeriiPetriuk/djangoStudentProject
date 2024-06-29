@@ -6,8 +6,8 @@ from base.serializers.group_serializers import GroupSerializer
 
 
 class ScheduleModelSerializer(serializers.ModelSerializer):
-    subject = SubjectModelSerializer(many=True)
+    subject = SubjectModelSerializer()
     group = GroupSerializer()
     class Meta:
         model = Schedule
-        fields = ("id", "day", "group", "subject",)
+        fields = ("id", "day", "group", "subject", "audience", "time", "number_subject")

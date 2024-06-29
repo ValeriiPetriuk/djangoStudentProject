@@ -1,8 +1,7 @@
-import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, FormControl, InputLabel, Select, MenuItem, CircularProgress } from "@mui/material";
 
 
-export default function SelectGroup({group, handleChangeGroup}) {
-   
+export default function SelectGroup({group, handleChangeGroup, groups}) {
   
     return (
       <Box sx={{ minWidth: 120 }}>
@@ -15,9 +14,9 @@ export default function SelectGroup({group, handleChangeGroup}) {
             label="day"
             onChange={handleChangeGroup}
           >
-            <MenuItem value="PS3-1">ПС3-1</MenuItem>
-            <MenuItem value="PS1-1">ПС1-1</MenuItem>
-    
+          {groups.map(item => (
+            <MenuItem value={item.name} key={item.id}>{item.name}</MenuItem>
+          ))}
           </Select>
         </FormControl>
       </Box>
